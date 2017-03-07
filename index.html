@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DSCC</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+
+    <!-- Leave out Storage -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-storage.js"></script> -->
+
+    <style>
+      div {
+        float: left;
+        width: 150px;
+      }
+
+
+    </style>
+
+</head>
+
+<body>
+<h1>Welcome</h1>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA-mBjfRUx0W9ZWd7Egja8EaLdbl5OkOTs",
+    authDomain: "amar-dhaka-b4843.firebaseapp.com",
+    databaseURL: "https://amar-dhaka-b4843.firebaseio.com",
+    storageBucket: "amar-dhaka-b4843.appspot.com",
+    messagingSenderId: "950387664304"
+  };
+  firebase.initializeApp(config);
+
+  // Get a reference to the /users/ada node
+
+    var leadsRef = firebase.database().ref("images");
+    leadsRef.once('value', function(snapshot) {
+        document.getElementsByTagName("body")[0].innerHTML = "";
+
+        var h2 = document.createElement('h2');
+        h2.innerHTML =  "Realtime Complains (LIVE)"
+        document.body.appendChild(h2);
+        snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+            var div = document.createElement('div');
+            div.innerHTML = 
+            "<figure><img src='" + childData.url + 
+            "'><figcaption>"+ childData.complain +
+            "</figcaption></figure>";
+           
+            document.body.appendChild(div);
+        });
+    });
+
+	leadsRef.on('child_added', function(snapshot) {
+    var childData = snapshot.val();
+    console.log(childData);
+     var div = document.createElement('div');
+            div.innerHTML = 
+            "<figure><img src='" + childData.url + 
+            "'><figcaption>"+ childData.complain +
+            "</figcaption></figure>";
+            document.body.appendChild(div);
+	});
+
+
+</script>
+</body>
+</html>
