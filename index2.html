@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DSCC</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+
+    <!-- Leave out Storage -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-storage.js"></script> -->
+
+  </head>
+  <body>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+               <h1>Real Time Complains (Live)</h1> 
+        </div>
+    </div>
+    <div class="row">
+        <div id="complains" class="col-md-12">
+            
+        </div>
+    </div>
+    </div>
+    
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script>alert('asdf');</script>
+    <script>
+    alert('s');
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA-mBjfRUx0W9ZWd7Egja8EaLdbl5OkOTs",
+        authDomain: "amar-dhaka-b4843.firebaseapp.com",
+        databaseURL: "https://amar-dhaka-b4843.firebaseio.com",
+        storageBucket: "amar-dhaka-b4843.appspot.com",
+        messagingSenderId: "950387664304"
+      };
+      firebase.initializeApp(config);
+
+      // Get a reference to the /users/ada node
+
+        var leadsRef = firebase.database().ref("images");
+        leadsRef.once('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var div = document.createElement('div');
+                div.innerHTML = 
+        "<div class='card' style='width: 20rem;'>
+        <img class='card-img-top' src='"+  childData.url + "' alt='Card image cap'>
+              <div class='card-body'>
+                <h4 class='card-title'>" + childData.complain" +"</h4>
+                <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href='#' class='btn btn-primary'>Go somewhere</a>
+              </div>
+            </div>";
+                document.getElementById('complains').appendChild(div);
+
+            console.log("d");
+            });
+        });
+
+        leadsRef.on('child_added', function(snapshot) {
+        var childData = snapshot.val();
+        console.log(childData);
+         var div = document.createElement('div');
+                div.innerHTML = 
+                "<figure><img src='" + childData.url + 
+                "'><figcaption>"+ childData.complain +
+                "</figcaption></figure>";
+                document.body.appendChild(div);
+        });
+
+
+    </script>
+    </body>
+</html>
