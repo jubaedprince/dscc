@@ -89,7 +89,7 @@
                 var childData = childSnapshot.val();
                 var div = document.createElement('div');
                 div.className = "card";
-                div.innerHTML='<img class="card-img-top" src="'+ childData.url +'" alt="Card image cap"> <div class="card-block"> <h4 class="card-title">'+ childData.complain+'</h4> <p class="card-text">'+  ' User - ' + childData.name + '-' + childData.userEmail + '-' + childData.phoneNumber  +'</p> </div> <p class="card-text"><small class="text-muted">'+childData.location+'</small></p>';
+                div.innerHTML='<img class="card-img-top" src="'+ childData.url +'" alt="Card image cap"> <div class="card-block"> <h4 class="card-title">'+ childData.complain+'</h4> <p class="card-text">'+  ' User - ' + childData.name + '-' + childData.userEmail + '-' + childData.phoneNumber  +'</p> </div> <p class="card-text"><small class="text-muted">'+childData.location+'</small><br><h5>'+childData.complainType+'</h5></p>';
                 document.getElementById('complains').appendChild(div);
                 console.log('once called')
             });
